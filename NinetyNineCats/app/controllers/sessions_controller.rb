@@ -18,7 +18,11 @@ class SessionsController < ApplicationController
     end
   end
   
-  def destroy
-    
+  def destroy # Log Out
+    if current_user
+      session[:session_token] = nil
+      @current_user.reset_session_token!
+    end
+    redirect_to cats_url
   end
 end
