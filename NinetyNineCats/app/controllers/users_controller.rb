@@ -1,4 +1,4 @@
-class UsersController
+class UsersController < ApplicationController
   def new
     @user = User.new
     render :new
@@ -9,10 +9,11 @@ class UsersController
   end
   
   def create
-    User.new(user_name: params[:user][:user_name])
+    user = User.new(user_name: params[:user][:user_name])
+    user.password=(params[:user][:password])
+    user.reset_session_token!
+    user.save!
+    redirect_to cats_url
   end
-  
-  def destroy
-    
-  end
+
 end
