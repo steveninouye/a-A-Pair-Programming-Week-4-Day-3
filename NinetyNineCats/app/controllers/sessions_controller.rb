@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :user_signed_in?, only: [:new]
+  
   def new  # Log In form
     render :new
   end
@@ -24,5 +26,11 @@ class SessionsController < ApplicationController
       @current_user.reset_session_token!
     end
     redirect_to cats_url
+  end
+  
+  def user_signed_in?
+    if current_user
+      redirect_to cats_url
+    end
   end
 end
