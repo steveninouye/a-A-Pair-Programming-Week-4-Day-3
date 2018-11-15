@@ -25,7 +25,7 @@ class User < ApplicationRecord
   
   def reset_session_token!
     self.session_token = SecureRandom::urlsafe_base64(16)
-    # might need to save to db
+    self.save!
   end
   
   def password=(password)
